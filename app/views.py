@@ -5,9 +5,11 @@ Werkzeug Documentation:  https://werkzeug.palletsprojects.com/
 This file creates your application.
 """
 
+from crypt import methods
 from app import app
 from flask import render_template, request, jsonify, send_file
 import os
+from forms import UploadForm
 
 
 ###
@@ -17,6 +19,14 @@ import os
 @app.route('/')
 def index():
     return jsonify(message="This is the beginning of our API")
+
+@app.route('/api/upload',methods=['POST'])
+def upload():
+    myform = UploadForm()
+    if request.method =="POST":
+        if myform.validate_on_submit():
+            photo = myform.photo.data
+            
 
 
 ###
